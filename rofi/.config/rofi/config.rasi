@@ -8,4 +8,4 @@ configuration {
   display-combi: "  ";
 }
 //@theme "/usr/share/rofi/themes/sidetab-nord.rasi"
-@theme "/usr/share/rofi/themes/android_notification.rasi"
+@theme "/usr/share/rofi/themes/gruvbox-dark.rasi"
