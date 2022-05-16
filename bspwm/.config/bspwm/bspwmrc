@@ -44,7 +44,7 @@ polkit-dumb-agent &
 imwheel -b 45
 
 # Compositor
-picom --experimental-backends -b
+picom -b
 
 # Wallpaper
 feh --bg-fill --randomize ~/Pictures/Wallpapers/* #wallpaper
