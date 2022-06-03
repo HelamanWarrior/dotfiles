@@ -31,7 +31,10 @@ super + v
 	freetube
 
 super + c:
-	chromium
+	firefox
+
+super + i:
+	kpmenu
 
 #
 # bspwm hotkeys
