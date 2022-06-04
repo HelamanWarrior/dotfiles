@@ -51,6 +51,3 @@ feh --bg-fill --randomize ~/Pictures/Wallpapers/* #wallpaper
 
 # Polybar
 $HOME/.config/polybar/./launch.sh
-
-# Play with mpv
-play-with-mpv
