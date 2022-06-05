@@ -36,6 +36,9 @@ super + c:
 super + i:
 	kpmenu
 
+ctrl + super + space
+	rofi -show emoji
+
 #
 # bspwm hotkeys
 #

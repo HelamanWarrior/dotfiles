@@ -41,24 +41,26 @@ line-size = 3pt
 ;border-color = #00000000
 
 padding-left = 0
-padding-right = 0
+padding-right = 1
 
 module-margin = 1
 
-font-0 = "UbuntuMono Nerd Font:pixelsize=14;1"
+separator = |
+separator-foreground = ${colors.disabled}
 
-modules-left = launcher
-modules-center = bspwm
-modules-right = pulseaudio wlan eth battery date powermenu
+font-0 = monospace;2
+font-1 = "Font Awesome 6 Free;3"
+
+modules-left = launcher xworkspaces
+modules-center = xwindow
+modules-right = filesystem pulseaudio xkeyboard memory cpu wlan eth date
 
 cursor-click = pointer
 cursor-scroll = ns-resize
 
 enable-ipc = true
 
-tray-position = left
-tray-detached = true
-tray-offset-x = 30
+tray-position = right
 tray-padding = 5
 
 ; wm-restack = generic
@@ -86,45 +88,80 @@ tray-detached = false
 [module/launcher]
 type = custom/text
 
-content =  
-content-padding = 1
-click-left = rofi -show drun & 
+content = 💻 
+click-left = rofi & 
 
-[module/bspwm]
-type = internal/bspwm
+[module/xworkspaces]
+type = internal/xworkspaces
 
-format = <label-state> <label-mode>
+label-active = %name%
+label-active-background = ${colors.background-alt}
+label-active-underline= ${colors.primary}
+label-active-padding = 1
 
-label-focused = %index%
-label-focused-background = ${colors.background-alt}
-label-focused-foreground = ${colors.foreground}
-label-focused-underline = ${colors.primary}
-label-focused-padding = 2
+label-occupied = %name%
+label-occupied-padding = 1
 
-label-occupied = %index%
-label-occupied-background = ${colors.background}
-label-occupied-foreground = ${colors.disabled}
-label-occupied-padding = 2
+label-urgent = %name%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 1
 
-label-empty = 
-label-empty-padding = 0
+label-empty = %name%
+label-empty-foreground = ${colors.disabled}
+label-empty-padding = 1
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:60:...%
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+
+label-mounted = %{F#F0C674}%mountpoint%%{F-} %percentage_used%%
+
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.disabled}
 
 [module/pulseaudio]
 type = internal/pulseaudio
 
+format-volume-prefix = "VOL "
 format-volume-prefix-foreground = ${colors.primary}
-format-volume = <ramp-volume> <label-volume>
+format-volume = <label-volume>
 
 label-volume = %percentage%%
 
-label-muted = ﱝ Muted
+label-muted = muted
 label-muted-foreground = ${colors.disabled}
 
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
 
-click-right = pavucontrol&
+label-layout = %layout%
+label-layout-foreground = ${colors.primary}
+
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-foreground = ${colors.background}
+label-indicator-background = ${colors.secondary}
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = "RAM "
+format-prefix-foreground = ${colors.primary}
+label = %percentage_used:2%%
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = "CPU "
+format-prefix-foreground = ${colors.primary}
+label = %percentage:2%%
 
 [network-base]
 type = internal/network
@@ -134,19 +171,9 @@ format-disconnected = <label-disconnected>
 label-disconnected = %{F#ebdbb2}%ifname%%{F#a89984} disconnected
 
 [module/wlan]
-type = internal/network
-interface = wlp5s0
-interval = 1.0
-
-format-connected = <label-connected>
-format-connected-padding = 1
-label-connected = %{A1:$HOME/.config/polybar/scripts/wifimenu.sh:} %essid%%{A}
-label-connected-foreground = ${colors.foreground}
-
-format-disconnected = <label-disconnected>
-format-disconnected-padding = 1
-label-disconnected = %{A1:$HOME/.config/polybar/scripts/wifimenu.sh:}睊%{A}
-label-disconnected-foreground = ${colors.disabled}
+inherit = network-base
+interface-type = wireless
+label-connected = %{F#928374}%ifname%%{F-} %essid% %local_ip%
 
 [module/eth]
 inherit = network-base
@@ -157,42 +184,11 @@ label-connected = %{F#928374}%ifname%%{F-} %local_ip%
 type = internal/date
 interval = 1
 
-date =  %I:%M
+date = %I:%M
 date-alt = %Y-%m-%d %H:%M:%S
 
 label = %date%
 label-foreground = ${colors.primary}
-
-[module/battery]
-type = internal/battery
-battery = BAT0
-adapter = ADP1
-full-at = 98
-format-charging =  <label-charging>
-label-charging = %percentage:2%%
-format-charging-padding = 1
-format-charging-foreground = ${colors.foreground}
-format-discharging = <ramp-capacity> <label-discharging>
-label-discharging = %percentage%%
-format-discharging-foreground = ${colors.foreground}
-format-full-prefix = "  "
-ramp-capacity-0 = " "
-ramp-capacity-1 = " "
-ramp-capacity-2 = " "
-ramp-capacity-3 = " "
-ramp-capacity-4 = " "
-ramp-capacity-0-foreground = ${colors.alert}
-animation-charging-framerate = 910
-format-discharging-padding = 1
-
-[module/powermenu]
-type = custom/text
-
-content = " "
-content-padding = 1
-content-background = ${colors.primary}
-content-foreground = ${colors.background}
-click-left = $HOME/.config/polybar/scripts/powermenu.sh
 
 [settings]
 screenchange-reload = true
