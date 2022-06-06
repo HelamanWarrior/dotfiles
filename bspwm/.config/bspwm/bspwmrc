@@ -40,6 +40,9 @@ xset r rate 300 50
 # Run polkit agent for requesting permissions
 polkit-dumb-agent &
 
+# Notifications
+dunst &
+
 # Fix chromium slow scrolling
 imwheel -b 45
 
