@@ -36,7 +36,7 @@ super + c:
 super + i:
 	kpmenu
 
-ctrl + super + space
+super + alt + space
 	rofi -show emoji
 
 #
